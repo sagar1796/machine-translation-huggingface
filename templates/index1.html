@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IndoLingo</title>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .blue {
+            background-color: #c9cdce;
+            color: white;
+            padding: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+        }
+
+        textarea,
+        select,
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-group.col-md-6 {
+            flex-basis: 45%;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .btn-primary {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .translated-text {
+            margin-top: 20px;
+        }
+
+        .translated-text h2 {
+            margin-bottom: 10px;
+        }
+
+        .translated-text p {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="blue">
+            <h1>IndoLingo</h1>
+        </div>
+
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="text_input">Enter Text:</label>
+                <textarea id="text_input" name="text_input" rows="5" cols="40" class="form-control">{{ text_input }}</textarea>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="language_direction">Select Translation Direction:</label>
+                    <select id="language_direction" name="translation_direction" class="form-control">
+                        <option value="en-hi" {{ "selected" if translation_direction == "en-hi" }}>English to Hindi</option>
+                        <option value="hi-en" {{ "selected" if translation_direction == "hi-en" }}>Hindi to English</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="audio_input">Upload Audio:</label>
+                    <input type="file" id="audio_input" name="audio_input" accept=".mp3, .wav">
+                </div>
+            </div>
+            <div class="btn-group">
+                <button type="submit" class="btn btn-primary" name="action" value="translate">Translate</button>
+                <button type="submit" class="btn btn-primary" name="action" value="summarize">Summarize</button>
+            </div>
+        </form>
+
+        {% if translated_text %}
+        <div class="translated-text">
+            <h2>Translated Text:</h2>
+            <p>{{ translated_text }}</p>
+        </div>
+        {% endif %}
+
+        {% if summarized_text %}
+        <div class="translated-text">
+            <h2>Summarized Text:</h2>
+            <p>{{ summarized_text }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
